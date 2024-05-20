@@ -1,0 +1,15 @@
+<h1>Todos:</h1>
+<div>
+  <label for="todo.task">New task: </label>
+  <input id="task" #newTask placeholder="" />
+  <button (click)="addTodo(newTask.value); newTask.value = ''">Add task</button>
+</div>
+<div>
+  <ul>
+    <li *ngFor="let todo of todos">
+      <a>
+        <span class="badge">{{ todo.task }}</span>
+      </a>
+    </li>
+  </ul>
+</div>
