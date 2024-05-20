@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Todo } from '../todo';
 import { NgFor } from '@angular/common';
+import { TodoService } from '../todo.service';
 
 @Component({
   selector: 'app-todo',
@@ -8,26 +9,14 @@ import { NgFor } from '@angular/common';
   styleUrls: ['./todo.component.css'],
 })
 export class TodoComponent implements OnInit {
-  constructor() {}
+  todos: Todo[] = [];
+  constructor(private todoService: TodoService) {
+    todoService.getTodos()
+      .subscribe(todos => {
+        this.todos = todos;
+      });
+  }
 
   ngOnInit(): void {}
 
-  todo: Todo = {
-    id: 1,
-    task: 'Sleep',
-    completed: false,
-  };
-
-  todos: Todo[] = [
-    {
-      id: 1,
-      task: 'Sleep',
-      completed: false,
-    },
-    {
-      id: 2,
-      task: 'Study for AWS',
-      completed: false
-    }
-  ];
 }
