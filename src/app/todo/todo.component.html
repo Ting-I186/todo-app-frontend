@@ -1,0 +1,14 @@
+<h1>Todos:</h1>
+<div>
+  <label for="todo.task">Task: </label>
+  <input id="task" [(ngModel)]="todo.task" placeholder="">
+</div>
+<div>
+  <ul>
+    <li *ngFor="let todo of todos">
+      <a>
+        <span class="badge">{{ todo.task }}</span>
+      </a>
+    </li>
+  </ul>
+</div>
