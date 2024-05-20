@@ -20,5 +20,8 @@ export class TodoService {
     return this.http.post<Todo>(this.baseUrl, todo);
   }
 
-
+  markAsDone(todo: Todo): Observable<Todo> {
+    console.log(todo);
+    return this.http.patch<Todo>(`${this.baseUrl}/${todo.id}`, todo)
+  }
 }

@@ -29,4 +29,12 @@ export class TodoComponent implements OnInit {
         this.todos.push(todo);
       });
   }
+
+  markAsDone(todo: Todo): void {
+    todo.completed = true;
+    this.todoService.markAsDone(todo)
+      .subscribe(todo => {
+        // this.todos
+      })
+  }
 }
