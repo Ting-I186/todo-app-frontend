@@ -15,5 +15,10 @@ export class TodoService {
     return this.http.get<Todo[]>(this.baseUrl);
   }
 
+  addTodo(todo: Todo): Observable<Todo> {
+    console.log(todo);
+    return this.http.post<Todo>(this.baseUrl, todo);
+  }
+
 
 }

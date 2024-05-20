@@ -9,7 +9,9 @@ import { TodoService } from '../todo.service';
   styleUrls: ['./todo.component.css'],
 })
 export class TodoComponent implements OnInit {
+
   todos: Todo[] = [];
+  newTodo!: Todo;
   constructor(private todoService: TodoService) {
     todoService.getTodos()
       .subscribe(todos => {
@@ -19,4 +21,12 @@ export class TodoComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  addTodo(task: string): void {
+    task = task.trim();
+    if (!task) { return; }
+    this.todoService.addTodo({task: task, completed: false} as Todo)
+      .subscribe(todo => {
+        this.todos.push(todo);
+      });
+  }
 }
