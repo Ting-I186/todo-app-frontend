@@ -21,7 +21,12 @@ export class TodoService {
   }
 
   markAsDone(todo: Todo): Observable<Todo> {
-    console.log(todo);
-    return this.http.patch<Todo>(`${this.baseUrl}/${todo.id}`, todo)
+    console.log(`Marking as done: ${todo}`);
+    return this.http.patch<Todo>(`${this.baseUrl}/${todo.id}`, todo);
+  }
+
+  removeTodo(todo: Todo): Observable<Todo> {
+    console.log(`Removing: ${todo}`);
+    return this.http.delete<Todo>(`${this.baseUrl}/${todo.id}`);
   }
 }

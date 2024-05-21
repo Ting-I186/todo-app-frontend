@@ -10,6 +10,7 @@
       <div>
         <span class="badge">{{ todo.task }}</span>
         <button *ngIf="!todo.completed" (click)="markAsDone(todo)">Mark as done</button>
+        <button (click)="removeTodo(todo)">Remove</button>
       </div>
     </li>
   </ul>

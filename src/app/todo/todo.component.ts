@@ -13,10 +13,14 @@ export class TodoComponent implements OnInit {
   todos: Todo[] = [];
   newTodo!: Todo;
   constructor(private todoService: TodoService) {
-    todoService.getTodos()
-      .subscribe(todos => {
-        this.todos = todos;
-      });
+    this.updateTodos();
+  }
+
+  updateTodos() {
+    this.todoService.getTodos()
+    .subscribe(todos => {
+      this.todos = todos;
+    });
   }
 
   ngOnInit(): void {}
@@ -31,10 +35,16 @@ export class TodoComponent implements OnInit {
   }
 
   markAsDone(todo: Todo): void {
-    todo.completed = true;
     this.todoService.markAsDone(todo)
       .subscribe(todo => {
-        // this.todos
-      })
+        this.updateTodos();
+      });
+  }
+
+  removeTodo(todo: Todo): void {
+    this.todoService.removeTodo(todo)
+      .subscribe(todo => {
+        this.updateTodos();
+      });
   }
 }
