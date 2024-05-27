@@ -1,0 +1,22 @@
+<div class="main-page">
+  <div class="text">
+    <h1>Todos:</h1>
+    <div>
+      <label for="todo.task">New task: </label>
+      <input id="task" #newTask placeholder="" />
+      <button (click)="addTodo(newTask.value); newTask.value = ''">Add task</button>
+    </div>
+    <div>
+      <mat-list *ngFor="let todo of todos">
+        <mat-list-item>
+          <mat-icon *ngIf="todo.completed" svgIcon="checked"></mat-icon>
+          <mat-icon *ngIf="!todo.completed" svgIcon="unchecked"></mat-icon>
+          
+          {{ todo.task }}
+          <button *ngIf="!todo.completed" (click)="markAsDone(todo)">Mark as done</button>
+          <button (click)="removeTodo(todo)">Remove</button>
+        </mat-list-item>
+      </mat-list>
+    </div>
+  <div>
+</div>
