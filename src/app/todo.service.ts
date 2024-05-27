@@ -9,7 +9,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class TodoService {
   constructor(private http: HttpClient) {}
 
-  private readonly baseUrl: string = 'http://localhost:31164/todos';
+  private readonly baseUrl: string = 'http://localhost:31597/todos';
 
   getTodos(): Observable<Todo[]> {
     return this.http.get<Todo[]>(this.baseUrl);
