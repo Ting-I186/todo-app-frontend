@@ -1,7 +1,10 @@
+import { Todo } from './../todo';
 import { Component, OnInit } from '@angular/core';
-import { Todo } from '../todo';
 import { NgFor } from '@angular/common';
 import { TodoService } from '../todo.service';
+import { ToastrService } from 'ngx-toastr';
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 @Component({
   selector: 'app-todo',
@@ -12,7 +15,10 @@ export class TodoComponent implements OnInit {
 
   todos: Todo[] = [];
   newTodo!: Todo;
-  constructor(private todoService: TodoService) {
+  constructor(
+    private todoService: TodoService,
+    private toastr: ToastrService
+  ) {
     this.updateTodos();
   }
 
@@ -29,9 +35,15 @@ export class TodoComponent implements OnInit {
     task = task.trim();
     if (!task) { return; }
     this.todoService.addTodo({task: task, completed: false} as Todo)
-      .subscribe(todo => {
+    .subscribe((todo) => {
         this.todos.push(todo);
-      });
+    },
+    (err) => {
+      console.log("Handling error");
+      console.log(err.error)
+      this.toastr.error(err.error);
+    }
+  );
   }
 
   markAsDone(todo: Todo): void {

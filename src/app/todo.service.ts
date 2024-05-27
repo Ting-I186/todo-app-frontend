@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Todo } from './todo';
-import { Observable, of } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, catchError, of } from 'rxjs';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TodoService {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient
+  ) {}
 
   private readonly baseUrl: string = 'http://localhost:31597/todos';
 
@@ -16,17 +19,22 @@ export class TodoService {
   }
 
   addTodo(todo: Todo): Observable<Todo> {
-    console.log(todo);
     return this.http.post<Todo>(this.baseUrl, todo);
   }
 
-  markAsDone(todo: Todo): Observable<Todo> {
-    console.log(`Marking as done: ${todo}`);
-    return this.http.patch<Todo>(`${this.baseUrl}/${todo.id}`, todo);
+  markAsDone(todo: Todo): Observable<String> {
+    console.log("Marking as done: " + todo);
+    const requestOptions: Object = {
+      responseType: 'text'
+    };
+    return this.http.patch<String>(`${this.baseUrl}/${todo.id}`, todo, requestOptions);
   }
 
-  removeTodo(todo: Todo): Observable<Todo> {
-    console.log(`Removing: ${todo}`);
-    return this.http.delete<Todo>(`${this.baseUrl}/${todo.id}`);
+  removeTodo(todo: Todo): Observable<String> {
+    console.log("Removing: " + todo);
+    const requestOptions: Object = {
+      responseType: 'text'
+    };
+    return this.http.delete<String>(`${this.baseUrl}/${todo.id}`, requestOptions);
   }
 }
