@@ -9,8 +9,8 @@
     <div>
       <mat-list *ngFor="let todo of todos">
         <mat-list-item>
-          <mat-icon *ngIf="todo.completed">&#xe2e6;</mat-icon>
-          <mat-icon *ngIf="!todo.completed">&#xe836;</mat-icon>
+          <mat-icon *ngIf="todo.completed" svgIcon="checked"></mat-icon>
+          <mat-icon *ngIf="!todo.completed" svgIcon="unchecked"></mat-icon>
           
           {{ todo.task }}
           <button *ngIf="!todo.completed" (click)="markAsDone(todo)">Mark as done</button>

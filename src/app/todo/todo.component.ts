@@ -5,6 +5,8 @@ import { TodoService } from '../todo.service';
 import { ToastrService } from 'ngx-toastr';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-todo',
@@ -17,9 +19,19 @@ export class TodoComponent implements OnInit {
   newTodo!: Todo;
   constructor(
     private todoService: TodoService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    iconRegistry: MatIconRegistry, 
+    sanitizer: DomSanitizer
   ) {
     this.updateTodos();
+    iconRegistry.addSvgIcon(
+      "unchecked",
+      sanitizer.bypassSecurityTrustResourceUrl("/assets/icons/unchecked.svg")
+    );
+    iconRegistry.addSvgIcon(
+      "checked",
+      sanitizer.bypassSecurityTrustResourceUrl("/assets/icons/checked.svg")
+    );
   }
 
   updateTodos() {
