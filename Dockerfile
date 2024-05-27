@@ -6,6 +6,4 @@ COPY . .
 RUN npm run build
 
 FROM nginx:alpine
-COPY --from=builder /app/dist/fresh-app/broswer /usr/share/nginx/html
-EXPOSE 80
-CMD ["nginx", "-g" " daemon off;"]
+COPY --from=builder /app/dist/todo-app-frontend /usr/share/nginx/html
